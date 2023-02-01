@@ -1,6 +1,6 @@
 const { check } = require('express-validator')
 const { validateResult } = require('./validateHelper')
-const axios = require('axios')
+
 
 const validateCreate = [
     check('name')
@@ -11,15 +11,17 @@ const validateCreate = [
     .exists(),
     check('gender')
     .exists()
-    .custom((value, { req } )=> {
-        if(value != "female" || value != "male" || value != "non binary"){
+    .custom((value, { req })=> {
+        if(value !== "female" && value!== "male" && value !== "non gender"){
             throw new Error('Elija otro genero')
         }
             return true
     }),
     (req, res, next) => {
         validateResult(req, res, next)
+        
     }
+    
 ]
 
 
